@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import {Schema , model} from "mongoose";
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   username: 
   { 
     type: String, 
@@ -18,9 +18,14 @@ const UserSchema = new mongoose.Schema({
     type: String, 
     required: true 
 },
+  imageUrl: 
+  {
+    type: String,
+    default: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+  }
 
 }, { timestamps: true });
 
-const User = mongoose.model("User", UserSchema);
+const User = model("User", UserSchema);
 
 export default User;

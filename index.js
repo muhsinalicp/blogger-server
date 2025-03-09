@@ -13,8 +13,12 @@ app.use(cookieParser());
 
 connectDB(process.env.MONGO_URI);
 
+app.get("/", (req, res) => {
+    res.json({ message: "Hello from server" });
+})
 
-app.use("/api/auth", AuthRouter);
+
+app.use("/auth", AuthRouter);
 
 
 
