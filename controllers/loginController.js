@@ -6,6 +6,8 @@ export async function loginController(req, res)
 {
     try 
     {
+        console.log(req.body);
+        
         const {username, password} = req.body;
         console.log(username, password);
         
@@ -17,13 +19,17 @@ export async function loginController(req, res)
         if(!isPasswordValid) return res.status(400).json({message: "Invalid password"});
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+        // console.log(token);
         res.cookie("token", token, 
             {
-                expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
-                httpOnly: true, // accessible only by the server
-                secure: true, // only sent over HTTPS
-                sameSite: "none"
+                expires: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
             });
+        console.log(req.headers.cookie);
+        
+        
 
         return res.status(200).json({message: "Login successful"});
 
