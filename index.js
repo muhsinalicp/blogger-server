@@ -4,6 +4,8 @@ import cors from "cors";
 import  {connectDB}  from "./connection.js";
 import cookieParser from "cookie-parser";
 import AuthRouter from "./routes/auth.js";
+import UserRouter from "./routes/user.js";
+import { authMiddleware } from "./middlewares/authMiddleware.js";
 const app = express();
 const PORT = process.env.PORT || 9000;
 
@@ -11,7 +13,7 @@ const PORT = process.env.PORT || 9000;
 app.use(express.json());
 
 const corsOptions = {
-    origin: 'https://blogger-client-production.up.railway.app', // or an array of allowed origins
+    origin: process.env.CLIENT_URL, // or an array of allowed origins
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
     credentials: true, // Allow cookies/auth headers (if needed)
@@ -31,7 +33,8 @@ app.get("/", (req, res) => {
 
 app.use("/auth", AuthRouter);
 
-
+// protected routes
+app.use("/user", authMiddleware, UserRouter);
 
 
 

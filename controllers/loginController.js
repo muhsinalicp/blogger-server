@@ -26,14 +26,7 @@ export async function loginController(req, res)
             secure: true,  // Keep this for HTTPS
             sameSite: "lax" // Change from "none" to "lax"
         });
-        
-        console.log(req.headers.cookie);
-        
-        
-
         return res.status(200).json({message: "Login successful"});
-
-
     }
     catch (error) 
     {
