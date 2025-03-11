@@ -10,10 +10,15 @@ const PORT = process.env.PORT || 9000;
 
 app.use(express.json());
 
-app.use(cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-}));
+const corsOptions = {
+    origin: 'https://blogger-client-production.up.railway.app', // or an array of allowed origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+    credentials: true, // Allow cookies/auth headers (if needed)
+    maxAge: 86400, // Cache the preflight response for one day
+  };
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 
