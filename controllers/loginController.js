@@ -19,14 +19,14 @@ export async function loginController(req, res)
         if(!isPasswordValid) return res.status(400).json({message: "Invalid password"});
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
-        // console.log(token);
-        res.cookie("token", token, 
-            {
-                expires: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours
-                httpOnly: true,
-                secure: true,
-                sameSite: "none",
-            });
+
+        res.cookie("token", token, {
+            expires: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours
+            httpOnly: true,
+            secure: true,  // Keep this for HTTPS
+            sameSite: "lax" // Change from "none" to "lax"
+        });
+        
         console.log(req.headers.cookie);
         
         
