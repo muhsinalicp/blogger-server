@@ -1,5 +1,6 @@
 import { Router } from "express";
 import User from "../models/user.js";
+import getUserBlogs from "../controllers/getUserBlogs.js";
 
 const UserRouter = Router();
 
@@ -7,7 +8,6 @@ const UserRouter = Router();
 UserRouter.get("/details", async (req, res) => {
     try 
     {
-        console.log(req.user);
         const user = {
             username: req.user.username,
             email: req.user.email,
@@ -25,5 +25,7 @@ UserRouter.get("/details", async (req, res) => {
         
     }
 });
+
+UserRouter.get("/userblogs", getUserBlogs)
 
 export default UserRouter;

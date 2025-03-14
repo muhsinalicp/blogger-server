@@ -8,9 +8,8 @@ AuthRouter.post("/register",registerController);
 
 AuthRouter.post("/login", loginController);
 
-AuthRouter.post("/logout", (req, res) => {
-    res.clearCookie("token");
-    res.json({ message: "Logged out successfully" });
+AuthRouter.get("/logout", (req, res) => {
+    return res.clearCookie("token").json({ message: "Logged out successfully" });
 });
 
 
